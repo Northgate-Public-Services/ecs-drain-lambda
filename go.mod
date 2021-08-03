@@ -1,4 +1,4 @@
-module github.com/getsocial-rnd/ecs-drain-lambda
+module github.com/Northgate-Public-Services/ecs-drain-lambda
 
 go 1.12
 

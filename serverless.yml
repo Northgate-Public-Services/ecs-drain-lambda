@@ -5,7 +5,7 @@ package:
 provider:
   name: aws
   runtime: go1.x
-  region: us-east-1
+  region: eu-west-2
   memorySize: 128
   timeout: 900
   stage: prod
@@ -48,4 +48,4 @@ functions:
 
 resources:
   Description: |
-          Lambda for automatization of ECS Instances operations: https://github.com/getsocial-rnd/ecs-drain-lambda
+          Lambda for automatization of ECS Instances operations: https://github.com/Northgate-Public-Services/ecs-drain-lambda

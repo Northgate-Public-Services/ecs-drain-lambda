@@ -1,3 +1,6 @@
+Forked from <https://github.com/getsocial-rnd/ecs-drain-lambda>
+
+---
 # ecs-drain-lambda
 
 Based on the original idea from [AWS Blog post](https://aws.amazon.com/ru/blogs/compute/how-to-automate-container-instance-draining-in-amazon-ecs/) and [GitHub](https://github.com/aws-samples/ecs-cid-sample). With the following differences:
@@ -58,14 +61,25 @@ When updating AMI for the ECS instances then ASG replaces them without ["Drainin
 
 ## How to use
 
+### Deploy with serverless framework
+
+Create cloudformation stack with lambda function and necessary iam roles and permissions. Only external update is the CloudFormation for the ASG needs the `AWS::AutoScaling::LifecycleHook` configured as above.
+
 - Clone the repo with `git clone`
 
 - Enter the project directory `cd ecs-drain-lambda`
 
 - Run `make deploy`
 
-**Note**: by default `us-east-1` region is selected, if you need to deploy it to the
-different region you can use `sls deploy -v --region ${AWS_REGION}`
+**Note**: to deploy to a different region you can use `sls deploy -v --region ${AWS_REGION}`
+
+### Deploying manually (custom CloudFormation or Terraform)
+
+- Enter the project directory `cd ecs-drain-lambda`
+
+- Run `make package`
+
+- Deploy newly created zip file as lambda function as required.
 
 ## Limitations
 
@@ -74,5 +88,5 @@ different region you can use `sls deploy -v --region ${AWS_REGION}`
 - If function fails, then the default lifecycle hook action will be triggered (`ABANDON` or `CONTINUE` depending on your Hook configuration), either result will end up with eventual instance termination.
 
     [Documentation](https://docs.aws.amazon.com/autoscaling/ec2/userguide/lifecycle-hooks.html#lifecycle-hook-considerations)
-        
+
         If the instance is terminating, both ABANDON and CONTINUE allow the instance to terminate. However, ABANDON stops any remaining actions, such as other lifecycle hooks, while CONTINUE allows any other lifecycle hooks to complete.
